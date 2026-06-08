@@ -1,11 +1,16 @@
 <!--
   Eunji Hwang — Personal Portfolio
-  Single-file site. Host free on GitHub Pages: put this file as index.html in a
-  public repo named  eunji1120.github.io  (or any repo → Settings → Pages).
+  Single-file site. Host free on GitHub Pages: put this file as index.html in the
+  public repo  eunji1120.github.io.
 
-  ▶ BEFORE PUBLISHING, replace the 2 placeholders marked  [REPLACE]  below:
-     1. LinkedIn URL   (search:  REPLACE-LINKEDIN )
-     2. Résumé link    (search:  REPLACE-RESUME  — point it to your PDF, or remove)
+  ▶ TO MAKE THE RÉSUMÉ BUTTONS WORK:
+     Upload BOTH PDFs to the SAME folder as this index.html (repo root),
+     keeping these exact filenames:
+        Eunji_Hwang_Resume_DataAnalyst.pdf
+        Eunji_Hwang_Resume_DataScience.pdf
+     The "Résumé" menu (nav + hero) and the contact chips download them directly.
+
+  ▶ LinkedIn, email ("Say hi"), and WhatsApp are wired to the real accounts.
 -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -141,18 +146,16 @@
   .now li::before{content:"▸"; color:var(--ember)}
 
   /* skills */
-  .skills-grid{display:grid; grid-template-columns:1fr; gap:0}
-  .skill-row{border-top:1px solid var(--line); padding:16px 0; display:grid;
-    grid-template-columns:150px 1fr; gap:18px; align-items:start}
-  @media(max-width:620px){ .skill-row{grid-template-columns:1fr; gap:8px} }
+  .skills-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px}
+  @media(max-width:820px){ .skills-grid{grid-template-columns:1fr} }
+  .skill-row{border-top:1px solid var(--line); padding:18px 0; display:grid;
+    grid-template-columns:130px 1fr; gap:18px; align-items:start}
   .skill-row .lbl{font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--muted);
     padding-top:5px; letter-spacing:.5px}
   .tags{display:flex; flex-wrap:wrap; gap:8px}
   .tag{font-size:13.5px; font-weight:500; padding:5px 12px; border-radius:999px;
     background:var(--paper-2); border:1px solid var(--line)}
   .tag.hot{background:var(--pine); color:#F4EFE6; border-color:var(--pine)}
-  .skill-legend{font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--muted);
-    margin:-26px 0 22px; display:flex; align-items:center; gap:8px}
 
   /* projects */
   .feat{display:grid; grid-template-columns:1.15fr .85fr; gap:0; border:1px solid var(--line);
@@ -213,15 +216,6 @@
   .item .when{font-family:"JetBrains Mono",monospace; font-size:11.5px; color:var(--muted); margin-bottom:8px}
   .item p{font-size:14px; color:var(--ink-soft)}
 
-  /* continued learning */
-  .learn-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-  @media(max-width:760px){ .learn-grid{grid-template-columns:1fr} }
-  .learn{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--pine);
-    border-radius:14px; padding:22px 24px}
-  .learn .src{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:1.5px;
-    text-transform:uppercase; color:var(--ember); margin-bottom:10px}
-  .learn h4{font-family:"Fraunces",serif; font-weight:600; font-size:18px; line-height:1.2}
-
   /* contact */
   .contact{text-align:center; padding:96px 0 60px}
   .contact .eyebrow{justify-content:center}
@@ -235,6 +229,22 @@
   .soc:hover{background:var(--ink); color:var(--paper); border-color:var(--ink); transform:translateY(-2px)}
   footer{border-top:1px solid var(--line); padding:26px 0; text-align:center;
     font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--muted)}
+
+  /* ---------- RÉSUMÉ DROPDOWN ---------- */
+  .dd{position:relative; display:inline-flex}
+  .dd .dd-trigger{cursor:pointer; background:none; font-family:inherit}
+  .dd .dd-menu{position:absolute; top:calc(100% + 10px); left:0; min-width:236px; z-index:60;
+    background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow);
+    padding:7px; opacity:0; transform:translateY(6px); pointer-events:none; transition:.2s ease}
+  .dd:hover .dd-menu, .dd:focus-within .dd-menu{opacity:1; transform:none; pointer-events:auto}
+  .dd .dd-menu a{display:flex; align-items:center; justify-content:space-between; gap:14px;
+    padding:11px 13px; border-radius:9px; font-size:14px; font-weight:500; color:var(--ink); transition:.15s}
+  .dd .dd-menu a:hover{background:var(--paper-2)}
+  .dd .dd-menu a small{font-family:"JetBrains Mono",monospace; font-size:10.5px; color:var(--muted);
+    letter-spacing:.5px; white-space:nowrap}
+  .nav-dd .dd-trigger{font-size:14px; font-weight:500; color:var(--ink-soft); border:none; padding:0}
+  .nav-dd:hover .dd-trigger{color:var(--ink)}
+  @media(max-width:680px){ .nav-links .nav-dd{display:none} }
 </style>
 
 <!-- ============ NAV ============ -->
@@ -245,8 +255,13 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#work">Work</a>
-      <!-- REPLACE-RESUME: point href to your résumé PDF, or delete this link -->
-      <a href="#" target="_blank">Résumé</a>
+      <div class="dd nav-dd">
+        <button type="button" class="dd-trigger">Résumé ↓</button>
+        <div class="dd-menu">
+          <a href="Eunji_Hwang_Resume_DataAnalyst.pdf" download>Data Analyst <small>PDF ↓</small></a>
+          <a href="Eunji_Hwang_Resume_DataScience.pdf" download>Data Science / ML <small>PDF ↓</small></a>
+        </div>
+      </div>
       <a href="#contact" class="nav-cta">Get in touch</a>
     </div>
   </div>
@@ -270,6 +285,13 @@
       </div>
       <div class="cta-row" data-reveal style="--d:400ms">
         <a href="#work" class="btn btn-solid">View my work <span class="arr">↗</span></a>
+        <div class="dd">
+          <button type="button" class="btn btn-ghost dd-trigger">Résumé <span class="arr">↓</span></button>
+          <div class="dd-menu">
+            <a href="Eunji_Hwang_Resume_DataAnalyst.pdf" download>Data Analyst <small>PDF ↓</small></a>
+            <a href="Eunji_Hwang_Resume_DataScience.pdf" download>Data Science / ML <small>PDF ↓</small></a>
+          </div>
+        </div>
         <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
     </div>
@@ -295,7 +317,7 @@
         <h4>Currently</h4>
         <ul>
           <li>Seeking my first Data Analyst / Data Science role</li>
-          <li>Sharpening SQL &amp; building an end-to-end transit-data project</li>
+          <li>Sharpening SQL &amp; Power BI</li>
           <li>Based in Metro Vancouver · open to remote</li>
         </ul>
       </aside>
@@ -307,23 +329,22 @@
 <section id="skills">
   <div class="wrap">
     <div class="sec-head" data-reveal><span class="sec-num">02</span><span class="sec-title serif">Skills</span><span class="rule"></span></div>
-    <p class="skill-legend" data-reveal><span class="tag hot" style="padding:2px 9px;font-size:11px">highlighted</span> = core strengths</p>
     <div class="skills-grid">
       <div class="skill-row" data-reveal>
-        <div class="lbl">PROGRAMMING</div>
-        <div class="tags"><span class="tag hot">Python</span><span class="tag hot">R</span><span class="tag">SQL</span><span class="tag">Java</span><span class="tag">JavaScript</span></div>
+        <div class="lbl">LANGUAGES</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">R</span><span class="tag">SQL</span><span class="tag">Java</span><span class="tag">JavaScript</span></div>
       </div>
-      <div class="skill-row" data-reveal>
-        <div class="lbl">DATA &amp; ML</div>
-        <div class="tags"><span class="tag hot">Bayesian Modeling</span><span class="tag hot">Hypothesis Testing</span><span class="tag">Regression</span><span class="tag">Classification</span><span class="tag">Machine Learning</span><span class="tag">A/B Testing</span><span class="tag">Time-Series Forecasting</span><span class="tag">Data Visualization</span></div>
+      <div class="skill-row" data-reveal style="--d:80ms">
+        <div class="lbl">DATA &amp; STATS</div>
+        <div class="tags"><span class="tag hot">Bayesian Modeling</span><span class="tag">Machine Learning</span><span class="tag">Regression</span><span class="tag">Hypothesis Testing</span><span class="tag">Experiment Design</span><span class="tag">Data Visualization</span></div>
       </div>
       <div class="skill-row" data-reveal>
         <div class="lbl">TOOLS</div>
-        <div class="tags"><span class="tag">Power BI</span><span class="tag">Excel</span><span class="tag">MySQL</span><span class="tag">Stan</span><span class="tag">scikit-learn</span><span class="tag">pandas</span><span class="tag">tidyverse</span><span class="tag">ggplot2</span><span class="tag">Jupyter</span><span class="tag">Git</span><span class="tag">Linux</span><span class="tag">React</span><span class="tag">Node.js</span></div>
+        <div class="tags"><span class="tag hot">Power BI</span><span class="tag">Stan</span><span class="tag">tidyverse</span><span class="tag">ggplot2</span><span class="tag">Jupyter</span><span class="tag">Git</span><span class="tag">Linux</span><span class="tag">Excel</span></div>
       </div>
-      <div class="skill-row" data-reveal>
-        <div class="lbl">LANGUAGES</div>
-        <div class="tags"><span class="tag">English (fluent)</span><span class="tag">Mandarin Chinese (fluent)</span><span class="tag">Korean</span><span class="tag">Spanish</span></div>
+      <div class="skill-row" data-reveal style="--d:80ms">
+        <div class="lbl">SPOKEN</div>
+        <div class="tags"><span class="tag">English</span><span class="tag">Mandarin</span><span class="tag">Korean</span><span class="tag">Spanish</span></div>
       </div>
     </div>
   </div>
@@ -368,17 +389,6 @@
     <!-- GRID -->
     <div class="grid">
       <article class="pcard" data-reveal>
-        <div class="meta">HCI · Usability Study · Python</div>
-        <h4>Campus Food Security App</h4>
-        <p>Led the data analysis for a team HCI project — a Figma food-app prototype tested with 10 users. Cleaned messy survey data in Python, quantified task clarity at each step, and turned friction themes into prioritized design fixes.</p>
-        <div class="stack"><span>Python</span><span>pandas</span><span>Usability Testing</span><span>Figma</span></div>
-        <div style="display:flex; gap:16px; flex-wrap:wrap">
-          <a class="plink" href="https://www.figma.com/design/iEuqR15GXceiWvJpPXt5ky/Food-Bank-App-Prototype?node-id=32-482&amp;t=qNqKaoWZ6d0Gfawg-1" target="_blank">Figma prototype ↗</a>
-          <a class="plink" href="https://github.com/eunji1120/UBC_cpsc344_project" target="_blank">Repository ↗</a>
-        </div>
-      </article>
-
-      <article class="pcard" data-reveal>
         <div class="meta">STAT 201 · R</div>
         <h4>Commercial Banking Outreach Analysis</h4>
         <p>Used hypothesis testing, bootstrapping, and t-tests to evaluate how call duration affected outreach success — then presented the findings to an audience of 150.</p>
@@ -389,32 +399,24 @@
       <article class="pcard" data-reveal style="--d:80ms">
         <div class="meta">DSCI 100 · R</div>
         <h4>Heart Disease Prediction</h4>
-        <p>Built and trained a regression model on a heart-disease dataset to surface the strongest predictors, reaching 90.2% sensitivity.</p>
-        <div class="stack"><span>Regression</span><span>tidymodels</span><span>ggplot2</span></div>
+        <p>Built and tuned a classification model on a heart-disease dataset, optimizing recall to reach 90.2% sensitivity.</p>
+        <div class="stack"><span>Classification</span><span>tidymodels</span><span>ggplot2</span></div>
         <a class="plink" href="https://github.com/eunji1120/dsci100-project" target="_blank">Repository ↗</a>
       </article>
 
       <article class="pcard" data-reveal>
-        <div class="meta">CPSC 304 · React · MySQL</div>
-        <h4>Hot-Pot Restaurant Management System</h4>
-        <p>Full-stack app (team of 3) tracking inventory and sales across 6 branches, on a normalized 20+ table MySQL database. I built the React frontend surfacing insights like least-profitable dish and highest-profit day.</p>
-        <div class="stack"><span>React</span><span>Node.js</span><span>MySQL</span><span>SQL</span></div>
-        <a class="plink" href="https://github.com/eunji1120/hotpot_restuarent_foodSupply_manage_system" target="_blank">Repository ↗</a>
-      </article>
-
-      <article class="pcard" data-reveal>
         <div class="meta">CPSC 210 · Java</div>
-        <h4>Order Management System</h4>
-        <p>A desktop order-management app built on an MVC architecture with the Java Collections API and JSON persistence, backed by JUnit test coverage.</p>
-        <div class="stack"><span>Java</span><span>OOP / MVC</span><span>JUnit</span><span>JSON</span></div>
+        <h4>Restaurant Order Management System</h4>
+        <p>Designed an MVC application with the Java Collections API and JSON persistence — backed by 100% JUnit test coverage.</p>
+        <div class="stack"><span>OOP / MVC</span><span>JUnit</span><span>JSON</span></div>
         <a class="plink" href="https://github.com/eunji1120/Order_manage_system" target="_blank">Repository ↗</a>
       </article>
 
       <article class="pcard" data-reveal style="--d:80ms">
-        <div class="meta">Web · HTML / CSS / JS</div>
-        <h4>Jellycat Product Page</h4>
-        <p>A responsive, animated product page with interactive elements and client-side form validation.</p>
-        <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="meta">Front-End · HTML / CSS / JS</div>
+        <h4>Interactive Product Page</h4>
+        <p>Hand-built a responsive, animated product page with interactive UI components and client-side form validation — the front-end fundamentals behind dashboards and internal data tools.</p>
+        <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Responsive UI</span></div>
         <a class="plink" href="https://eunji1120.github.io/jellycat-presentation/" target="_blank">Live demo ↗</a>
       </article>
     </div>
@@ -429,7 +431,7 @@
       <div data-reveal>
         <h3>Education</h3>
         <div class="item">
-          <div class="role">BSc, Statistics (Computer Science specialization)</div>
+          <div class="role">BSc, Statistics</div>
           <div class="org">University of British Columbia</div>
           <div class="when">Sept 2021 – June 2026 · Vancouver, BC</div>
           <p>Coursework in Bayesian Statistics, Statistical Modelling, Statistical Inference, Data Science, and Data Structures &amp; Algorithms.</p>
@@ -440,8 +442,8 @@
         <div class="item">
           <div class="role">Team Lead (Level 2)</div>
           <div class="org">Haidilao Hot Pot</div>
-          <div class="when">May 2023 &ndash; May 2026 &middot; 3 years</div>
-          <p>Promoted to Level-2 Team Lead, overseeing service for 50+ customer groups per shift. Redesigned multiple service workflows to improve turnaround and consistency, while training and coordinating team members in a fast-paced, high-volume environment.</p>
+          <div class="when">May 2023 – May 2026 · New Westminster, BC</div>
+          <p>Promoted to Level-2 Team Lead; oversaw service for 50+ customer groups per shift, trained and coordinated the team through peak hours, and redesigned service workflows to improve turnaround.</p>
         </div>
         <div class="item">
           <div class="role">Teaching Assistant</div>
@@ -454,37 +456,18 @@
   </div>
 </section>
 
-<!-- ============ CONTINUED LEARNING ============ -->
-<section id="learning">
-  <div class="wrap">
-    <div class="sec-head" data-reveal><span class="sec-num">05</span><span class="sec-title serif">Continued Learning</span><span class="rule"></span></div>
-    <div class="learn-grid">
-      <div class="learn" data-reveal>
-        <div class="src">Microsoft Learn</div>
-        <h4>Prepare &amp; Visualize Data with Power BI</h4>
-      </div>
-      <div class="learn" data-reveal style="--d:80ms">
-        <div class="src">Microsoft Learn</div>
-        <h4>Get Started with Microsoft Data Analytics</h4>
-      </div>
-      <div class="learn" data-reveal style="--d:160ms">
-        <div class="src">Microsoft Learn</div>
-        <h4>End-to-End Analytics with Microsoft Fabric</h4>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="contact">
   <div class="wrap">
     <div class="eyebrow" data-reveal><span class="ln"></span>Let's talk<span class="ln"></span></div>
-    <h2 data-reveal style="--d:80ms">Let's build something<br>worth measuring. <a href="mailto:eunji1102@outlook.com">Say hi →</a></h2>
+    <h2 data-reveal style="--d:80ms">Let's build something<br>worth measuring. <a href="mailto:eunji1102@outlook.com?subject=Hi%20Eunji%2C%20saw%20your%20portfolio">Say hi →</a></h2>
     <div class="socials" data-reveal style="--d:160ms">
-      <a class="soc" href="mailto:eunji1102@outlook.com">✉ eunji1102@outlook.com</a>
+      <a class="soc" href="mailto:eunji1102@outlook.com?subject=Hi%20Eunji%2C%20saw%20your%20portfolio">✉ eunji1102@outlook.com</a>
       <a class="soc" href="https://github.com/eunji1120" target="_blank">⌥ github.com/eunji1120</a>
-      <!-- REPLACE-LINKEDIN: paste your real LinkedIn URL here -->
       <a class="soc" href="https://www.linkedin.com/in/eun-ji-hwang-b93706201" target="_blank">in LinkedIn</a>
+      <a class="soc" href="https://wa.me/12369896106" target="_blank">✆ WhatsApp</a>
+      <a class="soc" href="Eunji_Hwang_Resume_DataAnalyst.pdf" download>↓ Résumé · Data Analyst</a>
+      <a class="soc" href="Eunji_Hwang_Resume_DataScience.pdf" download>↓ Résumé · Data Science / ML</a>
     </div>
   </div>
 </section>
