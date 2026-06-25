@@ -2,7 +2,7 @@
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-Live%20Site-14534A?style=for-the-badge)](https://eunji1120.github.io)
 [![GitHub](https://img.shields.io/badge/GitHub-eunji1120-1B1814?style=for-the-badge&logo=github)](https://github.com/eunji1120)
-[![Email](https://img.shields.io/badge/Email-eunji1102%40outlook.com-C2562F?style=for-the-badge)](mailto:eunji1102@outlook.com)
+[![Email](https://img.shields.io/badge/Email-eunji1120%40outlook.com-C2562F?style=for-the-badge)](mailto:eunji1120@outlook.com)
 
 ## About
 
